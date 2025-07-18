@@ -116,16 +116,22 @@ To safeguard all user-associated data (both transient and persistent), the follo
 
 ---
 
-## 6. User Acceptance of This Policy
+## 6. Acceptance of Terms and Policy Updates
 
 - **Use of the bot constitutes acceptance:**  
-  Adding the bot to a chat, sending it a message, or interacting with it in any way is considered confirmation that the user has reviewed and accepted this privacy policy.
-- **Rejecting the policy:**  
-  If a user does not agree with these terms, they must cease using the bot. This can be done by:
+  Adding the bot to a chat, sending a message, or interacting in any way confirms acceptance of this privacy policy and its terms.
+- **Policy Rejection:**  
+  Users who do not agree with these terms should immediately discontinue use of the bot. This can be done by:
     - Issuing the `/stop` command in a private chat
-    - Having a group administrator use the `/deactivate` command in a group setting
-    - Removing or kicking the bot from the group
-    - Blocking the bot from the user’s Telegram account
+    - Having a group administrator use the `/deactivate` command in a group
+    - Removing or kicking the bot from a group
+    - Blocking the bot on Telegram
+
+---
+
+## 7. User Responsibility and Disclaimer
+
+The use of this service is entirely at the user’s own discretion and responsibility. The creator, owner, and any affiliates of this bot expressly disclaim any responsibility or liability for any direct or indirect actions, consequences, or outcomes arising from the use of this service. By using this bot, users acknowledge and accept that any actions taken or decisions made based on information or outputs provided by the bot rest solely with the user. Users are strongly encouraged to review this privacy policy on a regular basis in order to remain informed of any updates, changes, or revisions.
 
 ---
 
