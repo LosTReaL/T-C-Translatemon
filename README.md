@@ -74,7 +74,6 @@ External APIs are employed to provide core functions such as translation, transc
 | **Google Gemini API**| The text of messages, images (for optical character recognition), audio/video files (for transcription), documents requiring reading, and conversation history when `/summarize` is requested. | Provides fallback translations, speech-to-text transcription, image-to-text conversion, document content extraction, and chat summarization. | [Google Privacy Policy](https://policies.google.com/privacy) |
 
 - The bot functions strictly as a conduit: input provided by users is forwarded to the designated API, and the response is used only to reply to the user’s request.
-- **No responses or data returned by these third-party services are ever stored** in the bot’s database or long-term logs.
 
 ---
 
