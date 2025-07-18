@@ -1,104 +1,131 @@
 # Privacy Policy for the Translation Bot
 
-This Privacy Policy explains how our **Translation Bot** collects, uses, and manages your data. By using this bot, you acknowledge and agree to the terms outlined in this document. Your privacy and data security are our top priorities, and we are committed to full transparency regarding our data handling practices.
+This Privacy Policy provides a comprehensive explanation of how **this Translation Bot** collects, uses, processes, and stores user data. By using this bot, users indicate their understanding and acceptance of the practices and terms described herein. Protecting user privacy and ensuring robust data security are primary objectives. This policy aims to offer full transparency regarding every aspect of data handling in connection with the bot.
 
 ---
 
-## 1. Data We Store & Why
+## 1. Data Stored & Purpose
 
-We categorize stored data into two types:  
-- **Persistent Data** stored securely in our database  
-- **Temporary Data** held transiently in the bot’s memory for specific functionalities
+All information handled by the Translation Bot is categorized as either **persistent** (long-term, saved in the database) or **temporary** (short-term, held in runtime memory).
 
-### A. Persistently Stored Data (In Our Database)
+### A. Persistently Stored Data (Database Storage)
 
-We save certain data permanently so that the bot can remember your preferences and function properly, even after restarts.
+Persistent data is stored within a secure database to ensure the bot can reliably tailor its functions and settings across sessions—even if the bot is restarted or updated. This data is essential for users to benefit from customized features and a consistent bot experience.
 
-| Data Stored               | Purpose / Usage                                                    |
-| -------------------------| ----------------------------------------------------------------- |
-| **Chat ID**               | Numerical identifier for your Telegram private chat or group. This acts as the primary key enabling the bot to identify and apply your personalized settings. Without it, the bot would be unable to determine the language preferences or mode for your chat. |
-| **Language & Mode Settings** | Includes your chosen language pairs (e.g., English to Spanish) and options such as “Force Translate.” These allow the bot to perform translations tailored to your chat’s requirements. |
-| **User Interface & Media Preferences** | Settings like enabling/disabling the “🔄 Try Again” button (`retranslate_button_enabled`), and auto-translation preferences for media types such as voice notes, videos, photos, and documents (`autotranslate_voice`, etc.). These tailor the bot’s behavior to your preferences. |
+#### Data Types and Details
 
-> **Important:** We **never** store the actual content of your messages, photos, voice notes, or any media in our database. Only your `chat_id` and above-mentioned configuration settings are recorded.
+- **Chat ID**  
+  - *What is it?*  
+    A unique, numerical identifier assigned by Telegram for each private chat or group where the bot is used.
+  - *Purpose*:  
+    Serves as the primary key for all chat-specific and user-specific configuration data; allows the bot to retrieve and apply the correct settings for each chat. Without the Chat ID, no contextual settings or features could function.
+  - *Security*:  
+    Only the minimum chat identifier necessary for bot operation is stored; not user names or message content.
+  
+- **Language & Mode Settings**  
+  - *What is it?*  
+    The collection of language preferences selected by the user or chat, such as language pairs for translation (e.g., English ↔️ Spanish) or single target language for "Force Translate" mode.
+  - *Purpose*:  
+    Ensures that the bot provides translations according to the selected configuration, allowing users to communicate efficiently in their preferred languages.
+  - *Details*:  
+    Includes the chosen input and output languages as well as any specific mode-related settings.
 
----
+- **User Interface & Media Preferences**  
+  - *What is it?*  
+    User choices regarding how the bot behaves and interacts, including options like enabling the "🔄 Try Again" button (internal variable: `retranslate_button_enabled`), and auto-translation toggles for different media (e.g., `autotranslate_voice`, `autotranslate_video`, `autotranslate_photo`, and `autotranslate_document`).
+  - *Purpose*:  
+    Customizes the bot's responses and user interface according to each user or chat’s wishes, supporting preferences for media and retry features.
 
-### B. Temporarily Stored Data (In the Bot’s Memory)
-
-This data is kept only briefly to enable advanced features. It is purely volatile and deleted permanently when the bot restarts (e.g., during maintenance or updates).
-
-| Temporary Data                       | Purpose                                                             | Details                                          | Retention Period                                  |
-|------------------------------------|--------------------------------------------------------------------|-------------------------------------------------|--------------------------------------------------|
-| **Conversation History for Summaries** | Required for the `/summarize` command to generate summaries from recent chat | Stores a list of up to last 100 messages, including user's first name, message text, and timestamp | Continuously updated during runtime; **cleared completely on bot restart** |
-| **Original Text for Re-translation** | Powers the “🔄 Try Again” feature by caching the original untranslated message for alternate translation calls | Temporarily caches only the original text of messages with retry requests | Automatically cleared after 24 hours or on bot restart |
-
----
-
-## 2. How We Use Third-Party Services
-
-The bot utilizes trusted, secure third-party APIs to provide features like translation, transcription, and summarization. Your content is sent **only** when required and processed securely.
-
-| Service         | Data Sent                              | Purpose                                         | Privacy Link                                              |
-|-----------------|--------------------------------------|------------------------------------------------|-----------------------------------------------------------|
-| **DeepL API**   | Text content of the messages for translation | To deliver high-quality translations            | [DeepL Privacy Policy](https://www.deepl.com/privacy)     |
-| **Google Gemini API** | Text messages, images (for OCR), audio/video (for transcription), documents, conversation logs (for summarization) | Applies fallback translations, speech-to-text, image-to-text, document reading, and summarization | [Google Privacy Policy](https://policies.google.com/privacy) |
-
-- The bot simply acts as a secure conduit: it sends your content for processing and immediately forwards the response back to you.
-- **No responses from these services are logged or stored** permanently by us.
+> **Important Notice:** The bot’s persistent database **never** stores message contents, captions, media files, or any user-provided content apart from configuration data described above. Only the minimum necessary information for operation (such as `chat_id` and settings) is retained.
 
 ---
 
-## 3. Data We Explicitly DO NOT Store
+### B. Temporarily Stored Data (In-Memory Storage)
 
-To be absolutely clear, the bot **never** stores or logs the following:
+Transitory data is held only in the bot’s memory during runtime. This data enables features that require limited, short-term retention of chat activity. All temporary data is volatile and is automatically deleted whenever the bot is restarted (e.g., for updates or system maintenance).
 
-- Your Telegram username, full name, or Telegram user ID (except briefly during initial activation, after which it is immediately discarded)
-- Your profile pictures
-- Actual message content, captions, photos, videos, or documents in the long-term database
+#### Temporary Data Types
 
----
+- **Conversation History for Summaries**
+  - *What is it?*  
+    A dynamic, rolling list of the most recent messages in a chat (up to 100 messages maximum), including each sender’s first name, the message content, and the timestamp of the message.
+  - *Usage*:  
+    Required to generate chat summaries in response to the `/summarize` command, as the bot must analyze recent conversational context.
+  - *Retention & Deletion*:  
+    Only the latest 100 messages are stored. The list is continually refreshed, and the entire conversation history is deleted upon every bot restart.
 
-## 4. Your Rights & How to Delete Your Data
-
-You have complete control over your data and can delete it at any time:
-
-| Context              | Data Deletion Command                      | Effect                                                            |
-|----------------------|-------------------------------------------|------------------------------------------------------------------|
-| **Group Chat**       | `/deactivate` (used by group admin)       | Instantly deletes all data linked to the group/chat, including your activation status and settings. This action is irreversible. |
-| **Private Chat**     | `/stop`                                    | Permanently deletes all your data from our database. Irreversible.| 
-
-Additional automated deletions occur:
-
-- If the bot is removed from a group  
-- If you block the bot
-
-In those cases, your data associated with that chat is immediately and permanently erased.
+- **Original Text for Re-translation**
+  - *What is it?*  
+    Temporarily caches the original, untranslated text of a message for which a user requests re-translation using the “🔄 Try Again” button.
+  - *Usage*:  
+    Allows users to reattempt translation with an alternate service, by retrieving the original input rather than the previously translated result.
+  - *Retention & Deletion*:  
+    This data is retained for a maximum of 24 hours, after which it is cleared automatically. Additionally, all such cached data is purged on bot restart.
 
 ---
 
-## 5. Data Security
+## 2. Use of Third-Party Services
 
-We implement multiple technical safeguards to protect your information:
+External APIs are employed to provide core functions such as translation, transcription, image-to-text, and summarization. Data transmission to these services is limited to what is necessary for the requested operation, and content is not stored beyond the processing request.
 
-- All communication between you and the bot is encrypted using **SSL/TLS** protocols.
-- Sensitive keys and credentials are stored securely as environment variables, never hard-coded.
-- We adhere to industry best practices for server, database, and application security to prevent unauthorized access.
+| Service              | Data Sent                                                                   | Purpose & Usage                                                        | Relevant Policy                                          |
+|----------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------------------------------------|
+| **DeepL API**        | Only the source text of messages explicitly flagged for translation.        | Delivers high-quality, neural machine translations between languages.  | [DeepL Privacy Policy](https://www.deepl.com/privacy)    |
+| **Google Gemini API**| The text of messages, images (for optical character recognition), audio/video files (for transcription), documents requiring reading, and conversation history when `/summarize` is requested. | Provides fallback translations, speech-to-text transcription, image-to-text conversion, document content extraction, and chat summarization. | [Google Privacy Policy](https://policies.google.com/privacy) |
 
----
-
-## 6. Your Acceptance of This Policy
-
-- **By using the bot**—adding it to your chat, messaging it, or interacting with it—you confirm that you have read, understood, and accepted this Privacy Policy.
-- **If you do not agree** with the policy, your sole remedy is to immediately stop using the bot by:  
-  - Using `/stop` in a private chat, or  
-  - Having a group admin issue `/deactivate` in a group, or  
-  - Removing (kicking) the bot from your group, or  
-  - Blocking the bot.
+- The bot functions strictly as a conduit: input provided by users is forwarded to the designated API, and the response is used only to reply to the user’s request.
+- **No responses or data returned by these third-party services are ever stored** in the bot’s database or long-term logs.
 
 ---
 
-Thank you for trusting our Translation Bot. We are committed to respecting your privacy and providing you with a transparent, secure experience.
+## 3. Data Explicitly Not Stored or Logged
+
+For enhanced user privacy and transparency, the bot **never** stores, logs, or analyzes the following in its persistent storage or logs:
+
+- Telegram usernames, display names, or user IDs (except during brief, one-time activation, after which those elements are immediately discarded)
+- Profile pictures, or any user avatar or photo
+- The contents of messages, message captions, photographs, audio recordings, videos, or any documents, apart from what is needed for temporary memory or for transmission to external APIs as described above
+
+---
+
+## 4. User Data Rights & Deletion Controls
+
+Complete user control over stored data is provided, both via explicit commands and through automatic triggers based on changes in bot participation.
+
+| Scenario                | Command / Event                               | Effect                                                                                                     |
+|-------------------------|-----------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| **In Group Chats**      | `/deactivate` (must be used by a group admin) | Permanently deletes all data and configuration associated with the group, including all settings and activation status. This action cannot be reversed. |
+| **In Private Chats**    | `/stop`                                       | Instantly and permanently removes all user and chat-specific data from the bot database. This is irreversible.   |
+
+Additional automatic data erasure occurs when:
+
+- The bot is removed or kicked from a group chat  
+- A user blocks the bot on Telegram
+
+In any of these scenarios, data for that specific chat or user is deleted beyond recovery, including all language, mode, and interface preferences.
+
+---
+
+## 5. Data Security Measures
+
+To safeguard all user-associated data (both transient and persistent), the following security practices are observed:
+
+- All communications between Telegram users and the bot are protected by **SSL/TLS encryption**, ensuring that data in transit cannot be easily intercepted or tampered with.
+- Secret keys, API credentials, and other sensitive configuration information are **never** stored in the codebase; instead, they are kept securely as environment variables.
+- Database and application design follows industry best practices, including access control, least-privilege principles, and regular review of security configurations, to minimize risk of unauthorized data access or breaches.
+
+---
+
+## 6. User Acceptance of This Policy
+
+- **Use of the bot constitutes acceptance:**  
+  Adding the bot to a chat, sending it a message, or interacting with it in any way is considered confirmation that the user has reviewed and accepted this privacy policy.
+- **Rejecting the policy:**  
+  If a user does not agree with these terms, they must cease using the bot. This can be done by:
+    - Issuing the `/stop` command in a private chat
+    - Having a group administrator use the `/deactivate` command in a group setting
+    - Removing or kicking the bot from the group
+    - Blocking the bot from the user’s Telegram account
 
 ---
 
