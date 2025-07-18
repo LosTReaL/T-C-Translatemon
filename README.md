@@ -96,11 +96,6 @@ Complete user control over stored data is provided, both via explicit commands a
 | **In Group Chats**      | `/deactivate` (must be used by a group admin) | Permanently deletes all data and configuration associated with the group, including all settings and activation status. This action cannot be reversed. |
 | **In Private Chats**    | `/stop`                                       | Instantly and permanently removes all user and chat-specific data from the bot database. This is irreversible.   |
 
-Additional automatic data erasure occurs when:
-
-- The bot is removed or kicked from a group chat  
-- A user blocks the bot on Telegram
-
 In any of these scenarios, data for that specific chat or user is deleted beyond recovery, including all language, mode, and interface preferences.
 
 ---
@@ -123,8 +118,6 @@ To safeguard all user-associated data (both transient and persistent), the follo
   Users who do not agree with these terms should immediately discontinue use of the bot. This can be done by:
     - Issuing the `/stop` command in a private chat
     - Having a group administrator use the `/deactivate` command in a group
-    - Removing or kicking the bot from a group
-    - Blocking the bot on Telegram
 
 ---
 
