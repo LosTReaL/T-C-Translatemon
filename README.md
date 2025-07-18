@@ -48,11 +48,11 @@ Transitory data is held only in the bot’s memory during runtime. This data ena
 
 - **Conversation History for Summaries**
   - *What is it?*  
-    A dynamic, rolling list of the most recent messages in a chat, including each sender’s first name, the message content, and the timestamp of the message.
+    A dynamically maintained list of recent messages within a chat, including each sender’s first name, the message text, and timestamp.
   - *Usage*:  
-    Required to generate chat summaries in response to the `/summarize` command, as the bot must analyze recent conversational context.
-  - *Retention & Deletion*:  
-    Only the latest 100 messages are stored. The list is continually refreshed, and the entire conversation history is deleted upon every bot restart.
+    Required to generate chat summaries via the `/summarize` command by providing relevant conversational context.
+  - *Retention & Customization*:  
+    The number of stored messages is configurable by the bot owner to best suit operational needs and resource management. Typically, the default is set to retain the most recent 100 messages, but this value can be adjusted upward or downward. Regardless, this list is continually refreshed and completely cleared upon every bot restart to ensure memory efficiency and privacy.
 
 - **Original Text for Re-translation**
   - *What is it?*  
