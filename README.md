@@ -52,15 +52,31 @@ Transitory data is held only in the bot’s memory during runtime. This data ena
   - *Usage*:  
     Required to generate chat summaries via the `/summarize` command by providing relevant conversational context.
   - *Retention & Customization*:  
-    The number of stored messages is configurable by the bot owner to best suit operational needs and resource management. Typically, the default is set to retain the most recent 100 messages, but this value can be adjusted upward or downward. Regardless, this list is continually refreshed and completely cleared upon every bot restart to ensure memory efficiency and privacy.
+    The number of stored messages is configurable by the bot owner. This list is continually refreshed and completely cleared upon every bot restart to ensure memory efficiency and privacy.
 
 - **Original Text for Re-translation**
   - *What is it?*  
-    Temporarily caches the original, untranslated text of a message for which a user requests re-translation using the “🔄 Try Again” button.
+    Caches the original, untranslated text of a message to support the “🔄 Try Again” button.
   - *Usage*:  
-    Allows users to reattempt translation with an alternate service, by retrieving the original input rather than the previously translated result.
+    Allows users to reattempt translation with an alternate service by retrieving the original input.
   - *Retention & Deletion*:  
-    This data is retained for a maximum of 24 hours, after which it is cleared automatically. Additionally, all such cached data is purged on bot restart.
+    This data is retained for a maximum of 24 hours and is also purged on every bot restart.
+
+- **Message & Translation Mappings for Edits/Deletions**
+  - *What is it?*  
+    A mapping that links a user's original message ID to the bot's translation message ID. A reverse mapping is also stored, linking the bot's message ID back to the original user's message ID **and the original sender's User ID**.
+  - *Usage*:  
+    This mapping is essential for two key features: (1) allowing the bot to find and update its translation when you edit your message, and (2) allowing the bot to identify the correct messages for deletion when the `/deltrans` command is used. The stored `original_user_id` is used exclusively to verify that only the original sender or a group admin can authorize a deletion.
+  - *Retention & Deletion*:  
+    All mapping data is stored for a maximum of 24 hours and is also completely purged on every bot restart.
+
+- **Extracted Media Text for Caption Edits**
+  - *What is it?*  
+    If you send a media file (image, audio, etc.) that the bot processes for text, that extracted text is cached temporarily.
+  - *Usage*:  
+    This allows the bot to efficiently update the translation if you edit the media's caption. By caching the text from the media, the bot avoids having to download and re-process the entire file again, making caption edits fast and resource-friendly.
+  - *Retention & Deletion*:  
+    This cache is also cleared after 24 hours and upon every bot restart.
 
 ---
 
@@ -79,11 +95,12 @@ External APIs are employed to provide core functions such as translation, transc
 
 ## 3. Data Explicitly Not Stored or Logged
 
-For enhanced user privacy and transparency, the bot **never** stores, logs, or analyzes the following in its persistent storage or logs:
+For enhanced user privacy and transparency, the bot **never** stores the following in its **persistent database** or application logs:
 
-- Telegram usernames, display names, or user IDs (except during brief, one-time activation, after which those elements are immediately discarded)
-- Profile pictures, or any user avatar or photo
-- The contents of messages, message captions, photographs, audio recordings, videos, or any documents, apart from what is needed for temporary memory or for transmission to external APIs as described above
+- Telegram usernames or display names.
+- User IDs, except temporarily in memory as described in Section 1B for the explicit purpose of checking `/deltrans` permissions.
+- Profile pictures, user avatars, or any photos.
+- The contents of messages, captions, photographs, audio recordings, videos, or any documents, apart from what is held temporarily in memory for specific features as described above.
 
 ---
 
@@ -95,6 +112,7 @@ Complete user control over stored data is provided, both via explicit commands a
 |-------------------------|-----------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | **In Group Chats**      | `/deactivate` (must be used by a group admin) | Permanently deletes all data and configuration associated with the group, including all settings and activation status. This action cannot be reversed. |
 | **In Private Chats**    | `/stop`                                       | Instantly and permanently removes all user and chat-specific data from the bot database. This is irreversible.   |
+| **Deleting a Message**  | `/deltrans` (reply to a msg or its translation) | Deletes the bot's translation. If the bot is a group admin with deletion rights, it will also delete the original message. This action is irreversible and can only be performed by the original sender or a group admin. |
 
 In any of these scenarios, data for that specific chat or user is deleted beyond recovery, including all language, mode, and interface preferences.
 
@@ -106,6 +124,7 @@ To safeguard all user-associated data (both transient and persistent), the follo
 
 - All communications between Telegram users and the bot are protected by **SSL/TLS encryption**, ensuring that data in transit cannot be easily intercepted or tampered with.
 - Secret keys, API credentials, and other sensitive configuration information are **never** stored in the codebase; instead, they are kept securely as environment variables.
+- Sensitive credentials, such as API keys, are masked in system logs to prevent accidental exposure during error states.
 - Database and application design follows industry best practices, including access control, least-privilege principles, and regular review of security configurations, to minimize risk of unauthorized data access or breaches.
 
 ---
@@ -127,4 +146,4 @@ The use of this service is entirely at the user’s own discretion and responsib
 
 ---
 
-*Last updated: July 2025*
+*Last updated: September 2025*
