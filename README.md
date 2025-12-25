@@ -58,7 +58,7 @@ Transitory data is held only in the bot’s memory during runtime. This data ena
   - *What is it?*  
     Caches the original, untranslated text of a message to support the “🔄 Try Again” button.
   - *Usage*:  
-    Allows users to reattempt translation with an alternate service by retrieving the original input.
+    Allows users to reattempt translation with an alternate service by retrieving the original input via a unique session identifier (UUID).
   - *Retention & Deletion*:  
     This data is retained for a maximum of 24 hours and is also purged on every bot restart.
 
@@ -84,10 +84,11 @@ Transitory data is held only in the bot’s memory during runtime. This data ena
 
 External APIs are employed to provide core functions such as translation, transcription, image-to-text, and summarization. Data transmission to these services is limited to what is necessary for the requested operation, and content is not stored beyond the processing request.
 
-| Service              | Data Sent                                                                   | Purpose & Usage                                                        | Relevant Policy                                          |
-|----------------------|----------------------------------------------------------------------------|-----------------------------------------------------------------------|----------------------------------------------------------|
-| **DeepL API**        | Only the source text of messages explicitly flagged for translation.        | Delivers high-quality, neural machine translations between languages.  | [DeepL Privacy Policy](https://www.deepl.com/privacy)    |
-| **Google Gemini API**| The text of messages, images (for optical character recognition), audio/video files (for transcription), documents requiring reading, and conversation history when `/summarize` is requested. | Provides fallback translations, speech-to-text transcription, image-to-text conversion, document content extraction, and chat summarization. | [Google Privacy Policy](https://policies.google.com/privacy) |
+| Service | Data Sent | Purpose & Usage | Relevant Policy |
+| :--- | :--- | :--- | :--- |
+| **DeepL API** | Only the source text of messages explicitly flagged for translation. | Delivers high-quality, neural machine translations between languages (when selected as the active engine). | [DeepL Privacy Policy](https://www.deepl.com/privacy) |
+| **Microsoft Azure Translator** | Only the source text of messages explicitly flagged for translation. | Delivers neural machine translations between a broad range of languages (when selected as the active engine). | [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement) |
+| **Google Gemini API** | The text of messages, images (for optical character recognition), audio/video files (for transcription), documents requiring reading, and conversation history when `/summarize` is requested. | Provides fallback translations, speech-to-text transcription, image-to-text conversion, document content extraction, and chat summarization. | [Google Privacy Policy](https://policies.google.com/privacy) |
 
 - The bot functions strictly as a conduit: input provided by users is forwarded to the designated API, and the response is used only to reply to the user’s request.
 
@@ -108,11 +109,11 @@ For enhanced user privacy and transparency, the bot **never** stores the followi
 
 Complete user control over stored data is provided, both via explicit commands and through automatic triggers based on changes in bot participation.
 
-| Scenario                | Command / Event                               | Effect                                                                                                     |
-|-------------------------|-----------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| **In Group Chats**      | `/deactivate` (must be used by a group admin) | Permanently deletes all data and configuration associated with the group, including all settings and activation status. This action cannot be reversed. |
-| **In Private Chats**    | `/stop`                                       | Instantly and permanently removes all user and chat-specific data from the bot database. This is irreversible.   |
-| **Deleting a Message**  | `/deltrans` (reply to a msg or its translation) | Deletes the bot's translation. If the bot is a group admin with deletion rights, it will also delete the original message. This action is irreversible and can only be performed by the original sender or a group admin. |
+| Scenario | Command / Event | Effect |
+| :--- | :--- | :--- |
+| **In Group Chats** | `/deactivate` (must be used by a group admin) | Permanently deletes all data and configuration associated with the group, including all settings and activation status. This action cannot be reversed. |
+| **In Private Chats** | `/stop` | Instantly and permanently removes all user and chat-specific data from the bot database. This is irreversible. |
+| **Deleting a Message** | `/deltrans` (reply to a msg or its translation) | Deletes the bot's translation. If the bot is a group admin with deletion rights, it will also delete the original message. This action is irreversible and can only be performed by the original sender or a group admin. |
 
 In any of these scenarios, data for that specific chat or user is deleted beyond recovery, including all language, mode, and interface preferences.
 
@@ -124,7 +125,7 @@ To safeguard all user-associated data (both transient and persistent), the follo
 
 - All communications between Telegram users and the bot are protected by **SSL/TLS encryption**, ensuring that data in transit cannot be easily intercepted or tampered with.
 - Secret keys, API credentials, and other sensitive configuration information are **never** stored in the codebase; instead, they are kept securely as environment variables.
-- Sensitive credentials, such as API keys, are masked in system logs to prevent accidental exposure during error states.
+- **Log Sanitation:** Sensitive credentials, such as API keys, are rigorously masked in system logs to prevent accidental exposure. System logs used for maintenance and debugging (which may be forwarded to the bot administrator) are stripped of sensitive tokens.
 - Database and application design follows industry best practices, including access control, least-privilege principles, and regular review of security configurations, to minimize risk of unauthorized data access or breaches.
 
 ---
@@ -146,4 +147,4 @@ The use of this service is entirely at the user’s own discretion and responsib
 
 ---
 
-*Last updated: September 2025*
+*Last updated: December 2025*
